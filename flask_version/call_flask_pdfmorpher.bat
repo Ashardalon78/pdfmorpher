@@ -1,0 +1,1 @@
+python -i flask_pdfmorpher.py
