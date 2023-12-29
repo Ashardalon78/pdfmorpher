@@ -15,9 +15,9 @@ class PdfMorpher():
 
 	def pdfExtract(self):	
 		pdfInFile = open(filedialog.askopenfilename(title = "Select PDF file to extract from",filetypes = (("PDF Files","*.pdf"),("all files","*.*"))),'rb')
-		self.pdfReader = PyPDF2.PdfFileReader(pdfInFile,strict=False)
+		self.pdfReader = PyPDF2.PdfReader(pdfInFile,strict=False)
 			
-		self.pdfWriter = PyPDF2.PdfFileWriter()
+		self.pdfWriter = PyPDF2.PdfWriter()
 		
 		self.extractDialog = tk.Toplevel()
 		self.extractDialog.title("Pages to extract")
@@ -28,7 +28,7 @@ class PdfMorpher():
 		tk.Label(self.extractDialog,text=" to page:").grid(row=0,column=2)
 		self.T2 = tk.Text(self.extractDialog,height=1,width=5)
 		self.T2.grid(row=0,column=3)
-		self.T2.insert(tk.END,self.pdfReader.numPages)
+		self.T2.insert(tk.END,len(self.pdfReader.pages))
 		tk.Button(self.extractDialog, text="Extract", command=self.pdfExtract_a).grid(row=1, column=4)
 		
 	def pdfExtract_a(self):
@@ -36,35 +36,36 @@ class PdfMorpher():
 		endp = int(self.T2.get('1.0',tk.END))
 		
 		for pageNum in range(startp,endp):
-			pageObj = self.pdfReader.getPage(pageNum)			
-			self.pdfWriter.addPage(pageObj)
+			pageObj = self.pdfReader.pages[pageNum]			
+			self.pdfWriter.add_page(pageObj)
 			
 		pdfOutFile = open(filedialog.asksaveasfilename(title = "Name your output",filetypes = (("PDF Files","*.pdf"),("all files","*.*")),defaultextension='.pdf'), 'wb')		
-		self.pdfWiter = self.pdfWriter.removeLinks()
+		self.pdfWiter = self.pdfWriter.remove_links()
 		self.pdfWriter.write(pdfOutFile)
 		pdfOutFile.close()
 		
 	def pdfMerge(self):
 		pdfInFile1 = open(filedialog.askopenfilename(title = "Select first PDF file to merge",filetypes = (("PDF Files","*.pdf"),("all files","*.*"))),'rb')
-		pdfReader1 = PyPDF2.PdfFileReader(pdfInFile1,strict=False)
+		pdfReader1 = PyPDF2.PdfReader(pdfInFile1,strict=False)
 		pdfInFile2 = open(filedialog.askopenfilename(title = "Select second PDF file to merge",filetypes = (("PDF Files","*.pdf"),("all files","*.*"))),'rb')
-		pdfReader2 = PyPDF2.PdfFileReader(pdfInFile2,strict=False)
+		pdfReader2 = PyPDF2.PdfReader(pdfInFile2,strict=False)
 		
-		pdfWriter = PyPDF2.PdfFileWriter()
+		pdfWriter = PyPDF2.PdfWriter()
 		
-		for pageNum in range(pdfReader1.numPages):
-			pageObj = pdfReader1.getPage(pageNum)
-			pdfWriter.addPage(pageObj)
+		for pageNum in range(len(pdfReader1.pages)):
+			pageObj = pdfReader1.pages[pageNum]
+			pdfWriter.add_page(pageObj)
 			
-		for pageNum in range(pdfReader2.numPages):			
-			pageObj = pdfReader2.getPage(pageNum)
-			pdfWriter.addPage(pageObj)	
+		for pageNum in range(len(pdfReader2.pages)):			
+			pageObj = pdfReader2.pages[pageNum]
+			pdfWriter.add_page(pageObj)	
 
 		pdfOutFile = open(filedialog.asksaveasfilename(title = "Name your output",filetypes = (("PDF Files","*.pdf"),("all files","*.*")),defaultextension='.pdf'), 'wb')
 		pdfWriter.write(pdfOutFile)
 		pdfOutFile.close()
 		pdfInFile1.close()
 		pdfInFile2.close()
-			
-main_window = PdfMorpher()
+	
+if __name__ == '__main__':    
+    main_window = PdfMorpher()
 	
