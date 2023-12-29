@@ -1,0 +1,16 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}      
+			
+	<form action="/extract/forward" > 
+        <label for="name">From page: </label>
+        <input type="text" name="page1" value="{{1}}" id="name" />
+		<label for="name">To page: </label>
+        <input type="text" name="page2" value="{{page2}}" id="name" />
+      
+        <br />			
+
+        <button type="submit">Extract and download</button> 
+	</form> 
+	
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/static/lib/skeleton/normalize.css" />
+    <link rel="stylesheet" href="/static/lib/skeleton/skeleton.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <div class="container">   
+		{% block content %}{% endblock %}
+		<ul class="navigation">
+			<li class="navigation-item">
+				<a href="/">Home</a>
+			</li>
+			<li class="navigation-item">
+				<a href="/extract">Extract from pdf</a>
+			</li>
+			<li class="navigation-item">
+				<a href="/merge">Merge 2 pdfs</a>
+			</li>
+		</ul>
+	
+        
+    </div>
+</body>
+</html>

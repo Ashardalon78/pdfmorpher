@@ -1,0 +1,15 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}      
+			
+	<form action="/merge/forward" method="post" enctype = "multipart/form-data"> 
+		<label for="name">Select input file 1: </label>
+		<input type = "file" name = "inpath_me1" />
+		<br />
+		<label for="name">Select input file 2: </label>
+		<input type = "file" name = "inpath_me2" />
+		<br />
+        <input type = "submit"/ value="Upload, merge and download" >		
+    </form>  
+	
+{% endblock %}
